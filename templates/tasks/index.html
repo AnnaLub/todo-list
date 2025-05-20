@@ -3,7 +3,7 @@
   <div class="container-fluid">
     <div class="col-sm d-flex justify-content-between">
       <h1>TODO list</h1>
-      <p><a href="" class="btn btn-primary link-to-page">
+      <p><a href="{% url 'tasks:task-create' %}" class="btn btn-primary link-to-page">
         Add task
       </a></p>
     </div>
@@ -20,11 +20,11 @@
               {% endif %}
             </h4>
             {% if task.done %}
-              <a href="" class="btn btn-secondary link-to-page">
+              <a href="{% url 'tasks:toggle-task-status' pk=task.id %}" class="btn btn-secondary link-to-page">
                 Undo
               </a>
             {% else %}
-              <a href="" class="btn btn-success link-to-page ">
+              <a href="{% url 'tasks:toggle-task-status' pk=task.id %}" class="btn btn-success link-to-page ">
                 Compleat
               </a>
             {% endif %}
@@ -39,8 +39,8 @@
             {% for tag in task.tags.all %}
               {{ tag.title }}
             {% endfor %}
-            <a class="link-info list-inline-item " href="">Update</a>
-            <a class="link-info list-inline-item" href="">Delete</a>
+            <a class="link-info list-inline-item" href="{% url 'tasks:task-update' pk=task.id %}">Update</a>
+            <a class="link-info list-inline-item" href="{% url 'tasks:task-delete' pk=task.id %}">Delete</a>
           </p>
           <hr>
         {% endfor %}
