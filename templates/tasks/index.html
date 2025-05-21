@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block content %}
+  <div class="container-fluid">
+    <div class="col-sm d-flex justify-content-between">
+      <h1>TODO list</h1>
+      <p><a href="{% url 'tasks:task-create' %}" class="btn btn-primary link-to-page">
+        Add task
+      </a></p>
+    </div>
+    <br>
+    {% if task_list %}
+      <div class="col-sm">
+        {% for task in task_list %}
+          <div class="d-flex d-inline justify-content-between ">
+            <h4>{{ task.content }}
+              {% if task.done %}
+                <span class="text-success"> Done</span>
+              {% else %}
+                <span class="text-danger"> Not done</span>
+              {% endif %}
+            </h4>
+            {% if task.done %}
+              <a href="{% url 'tasks:toggle-task-status' pk=task.id %}" class="btn btn-secondary link-to-page">
+                Undo
+              </a>
+            {% else %}
+              <a href="{% url 'tasks:toggle-task-status' pk=task.id %}" class="btn btn-success link-to-page ">
+                Compleat
+              </a>
+            {% endif %}
+          </div>
+
+          <p>Created time: {{ task.created_time }}
+            {% if task.deadline %}
+              Deadline: {{ task.deadline }}
+            {% endif %}
+          </p>
+          <p>Tags:
+            {% for tag in task.tags.all %}
+              {{ tag.title }}
+            {% endfor %}
+            <a class="link-info list-inline-item" href="{% url 'tasks:task-update' pk=task.id %}">Update</a>
+            <a class="link-info list-inline-item" href="{% url 'tasks:task-delete' pk=task.id %}">Delete</a>
+          </p>
+          <hr>
+        {% endfor %}
+
+      </div>
+    {% else %}
+      <p>There are no task in todo list</p>
+    {% endif %}
+  </div>
+{% endblock %}
