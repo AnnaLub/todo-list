@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
+from tasks.forms import TaskForm
 from tasks.models import Task, Tag
 
 
@@ -18,7 +19,7 @@ class TaskListView(generic.ListView):
 
 class TaskCreateView(generic.CreateView):
     model = Task
-    fields = "__all__"
+    form_class = TaskForm
     template_name = "tasks/task_form.html"
 
     def get_success_url(self):
@@ -27,7 +28,7 @@ class TaskCreateView(generic.CreateView):
 
 class TaskUpdateView(generic.UpdateView):
     model = Task
-    fields = "__all__"
+    form_class = TaskForm
 
     def get_success_url(self):
         return reverse_lazy("tasks:index")
