@@ -1,7 +1,4 @@
-from audioop import reverse
-from msilib.schema import ListView
-
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
@@ -60,10 +57,12 @@ class TagCreateView(generic.CreateView):
     template_name = "tasks/tag_form.html"
     success_url = reverse_lazy("tasks:tag-list")
 
+
 class TagUpdateView(generic.UpdateView):
     model = Tag
     fields = "__all__"
     success_url = reverse_lazy("tasks:tag-list")
+
 
 class TagDeleteView(generic.DeleteView):
     model = Tag
