@@ -6,8 +6,6 @@ from tasks.forms import TaskForm
 from tasks.models import Task, Tag
 
 
-# Create your views here.
-
 class TaskListView(generic.ListView):
     model = Task
     template_name = "tasks/index.html"
